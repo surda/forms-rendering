@@ -24,6 +24,8 @@ class Bs4VerticalFormRenderer extends DefaultFormRenderer
         $this->wrappers['control']['.error'] = 'is-invalid';
         $this->wrappers['control']['.file'] = 'form-file';
         $this->wrappers['label']['container'] = NULL;
+        $this->wrappers['btn']['primary'] = 'btn btn-primary';
+        $this->wrappers['btn']['secondary'] = 'btn btn-secondary';
     }
 
     private function controlsInit(): void
@@ -39,7 +41,7 @@ class Bs4VerticalFormRenderer extends DefaultFormRenderer
         foreach ($this->form->getControls() as $control) {
             $type = $control->getOption('type');
             if ($type === 'button') {
-                $control->getControlPrototype()->addClass($usedPrimary === FALSE ? 'btn btn-primary' : 'btn btn-secondary');
+                $control->getControlPrototype()->addClass($usedPrimary === FALSE ? $this->getValue('btn primary') : $this->getValue('btn secondary'));
                 $usedPrimary = TRUE;
             } elseif (in_array($type, ['text', 'textarea', 'select'], TRUE)) {
                 $control->getControlPrototype()->addClass('form-control');
